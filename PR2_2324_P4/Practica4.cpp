@@ -22,19 +22,20 @@ using namespace std;
 	class AdjacencyMatrix {
 
 		public:
-			AdjacencyMatrix( int nvertex )
+			
+			AdjacencyMatrix (int nvertex)
 			{
 				this->nvertex = nvertex;
 				this->matrix = new int*[nvertex];
 				
-				for(int m = 0; m < nvertex; m++)
+				for (int m = 0; m < nvertex; m++)
 				{
 					this->matrix[m] = new int[nvertex];
 				}
 				
-				for(int i = 0; i < nvertex; i++)
+				for (int i = 0; i < nvertex; i++)
 				{
-					for(int j = 0; j < nvertex; j++)
+					for (int j = 0; j < nvertex; j++)
 					{
 						matrix[i][j] = 0;
 						matrix[j][i] = 0;
@@ -42,40 +43,40 @@ using namespace std;
 				}
 			}
 			
-			~AdjacencyMatrix()
+			~AdjacencyMatrix ()
 			{
 				delete[] matrix;
 			}
 			
-			int num_vertex()
+			int num_vertex ()
 			{
 				return nvertex;
 			}
 			
-			void create_arist( int i, int j )
+			void create_arist ( int i, int j )
 			{
 				matrix[i][j] = 1;
 				matrix[j][i] = 1;
 			}
 			
-			void remove_arist( int i, int j )
+			void remove_arist ( int i, int j )
 			{
 				matrix[i][j] = 0;
 				matrix[j][i] = 0;
 			}
 			
-			void print_matrix()
+			void print_matrix ()
 			{
 				cout << endl << "     ";
-				for(int m = 0; m < nvertex; m++)
+				for (int m = 0; m < nvertex; m++)
 				{
 					cout << m << "   ";
 				}
 				cout << endl;
-				for(int i = 0; i < nvertex; i++)
+				for (int i = 0; i < nvertex; i++)
 				{
 					cout << " " << i << "   ";
-					for(int j = 0; j < nvertex; j++)
+					for (int j = 0; j < nvertex; j++)
 					{
 						cout << matrix[i][j] << "   ";
 					}
@@ -88,22 +89,22 @@ using namespace std;
 			 |     ACTIVIDAD 2                                     |
  			 +-----------------------------------------------------*/
 			
-			int leftPos( bool* arr )
+			int leftPos ( bool* arr )
 			{
 				int pos = -1;
-				for(int i = 0; i < nvertex; i++)
+				for (int i = 0; i < nvertex; i++)
 				{
-					if(arr[i] == 1) { pos = i; }
+					if (arr[i] == 1) { pos = i; }
 				}
 				return pos;
 			}
 
-			void wide_path(int v = 0)
+			void wide_path (int v = 0)
 			{
 				bool visited[nvertex];
 				bool left[nvertex];
 
-				for(int m = 0; m < nvertex; m++)
+				for (int m = 0; m < nvertex; m++)
 				{
 					visited[m] = 0;
 					left[m] = 0;
@@ -113,19 +114,16 @@ using namespace std;
 				
 				cout << " * Wide path: " << v;
 				
-				while(leftPos(left) != -1)
+				while (leftPos(left) != -1)
 				{
 					left[v] = 0;
-					for(int i = 0; i < nvertex; i++)
+					for (int i = 0; i < nvertex; i++)
 					{
-						if(visited[i] == 0)
+						if ((visited[i] == 0) && (matrix[v][i] == 1))
 						{
-							if(matrix[v][i] == 1)
-							{
-								visited[i] = 1;
-								left[i] = 1;
-								cout << " - " << i;
-							}
+							visited[i] = 1;
+							left[i] = 1;
+							cout << " - " << i;
 						}
 					}
 					v = leftPos(left);
@@ -137,11 +135,10 @@ using namespace std;
 			 |     ACTIVIDAD 3                                     |
  			 +-----------------------------------------------------*/
 
-			void deep_path( int v = 0 )
+			void deep_path (int v = 0)
 			{
 				bool visited[nvertex];
-
-				for(int m = 0; m < nvertex; m++)
+				for (int m = 0; m < nvertex; m++)
 				{
 					visited[m] = 0;
 				}
@@ -153,6 +150,7 @@ using namespace std;
 			}
 
 		private:
+			
 			int nvertex;
 			int** matrix;
 
@@ -160,30 +158,26 @@ using namespace std;
 			 |     ACTIVIDAD 3                                     |
  			 +-----------------------------------------------------*/
 
-			void deep_path_( bool *visited, int v = 0 )
+			void deep_path_ (bool *visited, int v = 0)
 			{
 				bool left[nvertex];
-
-				for(int m = 0; m < nvertex; m++)
+				for (int m = 0; m < nvertex; m++)
 				{
 					left[m] = 0;
 				}
 				left[v] = 1;
 
-				while(leftPos(left) != -1)
+				while (leftPos(left) != -1)
 				{
 					left[v] = 0;
-					for(int i = 0; i < nvertex; i++)
+					for (int i = 0; i < nvertex; i++)
 					{
-						if(visited[i] == 0)
+						if ((visited[i] == 0) && (matrix[v][i] == 1))
 						{
-							if(matrix[v][i] == 1)
-							{
-								visited[i] = 1;
-								left[i] = 1;
-								cout << " - " << i;
-								deep_path_(visited, i);
-							}
+							visited[i] = 1;
+							left[i] = 1;
+							cout << " - " << i;
+							deep_path_(visited, i);
 						}
 					}
 					v = leftPos(left);
@@ -194,7 +188,7 @@ using namespace std;
 	//-----------------------------------------------(-)
 
 
-int main() {
+int main () {
 	
 	//-----[ ACTIVIDAD 1: MOSTRAR MATRIZ ]-----------(+)
 
